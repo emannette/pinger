@@ -1,0 +1,34 @@
+formatters:
+  brief:
+    # configuration for formatter with id 'brief' goes here
+    loglevel: warn
+    format: '%(message)s'
+    datefmt: '%F'
+  precise: 
+    # configuration for formatter with id 'precise' goes here
+    loglevel: debug
+    format: '[%(asctime)s] - %(levelname)8s - %(name)15s(%(thread)s) - %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+handlers:
+  h1: # this is the 'h1' id
+    # configuration for the h1 handler goes here
+    formatter: brief
+  h2: # this is the 'h2' id
+    # configuration for the h2 handler goes here
+    formatter: precise
+  file:
+    class: logging.handlers.RotatingFileHandler
+    size: 20000000
+    name: 
+loggers:
+  root:
+    # configuration for the root logger goes here
+  main:
+    # configuration for the main logger goes here
+  executor:
+    # configuration for the executor logger goes here
+  tasker:
+    # configuration for the tasker logger goes here
+  threader:
+    # configuration for the threader logger goes here
+  
