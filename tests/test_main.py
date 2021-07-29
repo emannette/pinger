@@ -22,6 +22,14 @@ class TestMainModule():
             main.get_hosts(None)
 
     def test_getting_hosts_with_hosts_file(self):
-        host_file = 'lib/test_hosts.txt'
-        main.get_hosts(host_file)
-        
+        host_file = 'tests/lib/test_hosts.txt'
+        hosts = main.get_hosts(host_file)
+        assert len(hosts) == 6
+
+    def test_getting_hosts_with_blank_hosts_file(self):
+        # If no hosts are present in the file then we should get a MissingHostsException
+        with pytest.raises(HostExceptions.MissingHostsException):
+            host_file = 'tests/lib/empty_host_file.txt'
+            _ = main.get_hosts(host_file)
+
+
