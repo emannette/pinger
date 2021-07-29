@@ -1,7 +1,7 @@
 import argparse
 import logging
 import logging.config
-from .exceptions import HostExceptions
+from src.exceptions import HostExceptions
 
 
 # logger = logging.getLogger(__name__)
@@ -22,17 +22,24 @@ def get_args() -> argparse.Namespace:
     return parser.parse_args()
 
 def get_hosts(passed_file):
+    hosts = None
+
     if not passed_file:
         raise HostExceptions.MissingHostsException()
+    with open(passed_file, 'r') as input_file:
+        hosts = input_file.readlines()
+        hosts = [h.strip() for h in hosts]
+    # Should the file size be checked instead?
+    if not hosts:
+        raise HostExceptions.MissingHostsException('The hosts file passed appears to be empty!')
+    return hosts
 
 
 if __name__ == '__main__':
-    # do stuff
     # instantiate the logger
     get_logger()
     logger = logging.getLogger('main')
     # get the arguments
     pargs = get_args()
-    breakpoint()
     get_hosts(pargs.host_file)
     pass
